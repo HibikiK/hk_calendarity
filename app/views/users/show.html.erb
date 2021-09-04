@@ -1,0 +1,51 @@
+<h1 class='mt-2'>マイページ  ~<%= @user.fullname %>~</h1>
+
+<section class="row">
+  <div class="col-md-2">
+    <%= render 'layouts/menu' %>
+  </div>
+
+  <div class="col-md-8">
+
+    <h3>My Calendar:</h3>
+    <div class='container border p-3'>
+      <p class='text-danger text-center fw-bold fs-4'>***** Now Developing... *****</p>
+      <p class='text-danger text-center'>(Events are not accessible)</p>
+      <div id='my_calendar'></div>
+    </div>
+    <br />
+
+    <h3>Participating Events:</h3>
+    <div class='card py-3'>
+      <% previous_p = nil %>
+      <% @participations.each do |p| %>
+        <% if p.event.start_at.month != previous_p %>
+          <div class='d-flex justify-content-center text-decoration-underline'>
+            <%= "#{t("date.month_names")[p.event.start_at.month]}" %>
+          </div>
+        <% end %>
+        <div class='list-group list-group-flush border-0'>
+          <%= link_to(p.event, class:'list-group-item')  do %>
+            <div class='card-header border'>
+              <h5 class='list-group-item-heading'><%= p.event.name %></h5>
+            </div>
+            <div class='card-body border'>
+              <p class='mb-1'><%= "・#{I18n.t('views.events.Time')} :  #{l(p.event.start_at, format: :short)} ~ #{l(p.event.end_at, format: :short)}" %></p>
+            </div>
+          <% end %>
+        </div>
+        <% previous_p = p.event.start_at.month %>
+      <% end %>
+      <div class="d-flex justify-content-end me-3">
+        <%= paginate @participations %>
+      </div>
+    </div>
+    <br />
+
+  </div>
+
+  <div class="col-md-2">
+    <%= render 'messages/chatlinks' %>
+  </div>
+
+</section>

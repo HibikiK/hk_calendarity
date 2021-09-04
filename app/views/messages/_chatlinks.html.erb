@@ -1,0 +1,25 @@
+<h3>Members:</h3>
+    <div id="members" class="border py-2">
+      <% if @members != nil %>
+        <div>
+          <p>
+            <%# 自分 %>
+            <%= link_to current_user.fullname, user_path(current_user.id), class: 'btn btn-secondary d-grid gap-2 border mt-1 mx-3' %>
+            <%# 相手（いれば） %>
+            <% if @partner != nil %>
+              <div class='d-grid gap-2 btn btn-light border mx-3 my-3'>
+                <%= button_to @partner.fullname, user_room_path(user_id: current_user.id, id: @partner.id), {method: :get , class: 'border-0 bg-transparent py-0 text-primary fw-bold'} %>
+              </div>
+            <% end %>
+            <%# 残りをループ %>
+            <% @members.each do |mem| %>
+              <% next if mem.id == current_user.id %>
+              <% next if @partner != nil && mem.id == @partner.id %>
+              <div class='d-grid gap-2 btn btn-light border mx-3 my-1'>
+                <%= button_to mem.fullname, user_room_path(user_id: current_user.id, id: mem.id), {method: :get , class: 'border-0 bg-transparent py-0'} %>
+              </div>
+            <% end %>
+          </p>
+        </div>
+      <% end %>
+    </div>

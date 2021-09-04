@@ -1,0 +1,35 @@
+<div class="bg-secondary text-center text-white p-5 mt-5">
+  Calendarity
+  <div class="text-center">
+    <ul class="nav justify-content-center">
+
+      <% if user_signed_in? %>
+         <li class="nav-item">
+            <%= link_to 'MyPage', user_path(current_user.id), class: 'nav-link text-decoration-underline', style:'color: #e9e0ff;'%>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Events', events_path, class: 'nav-link text-decoration-underline',style:'color: #e9e0ff;' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Chats', user_rooms_path(current_user.id), class: 'nav-link text-decoration-underline',style:'color: #e9e0ff;' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Edit User', edit_user_registration_path, class: 'nav-link text-decoration-underline',style:'color: #e9e0ff;'%>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link text-decoration-underline',style:'color: #e9e0ff;' ,data: { confirm: "【確認】ログアウトしますか？" }%>
+          </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to 'Login', new_user_session_path, class: 'nav-link text-decoration-underline',style:'color: #e9e0ff;' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Sign Up', new_user_registration_path, class: 'nav-link text-decoration-underline',style:'color: #e9e0ff;' %>
+        </li>
+      <% end %>
+
+    </ul>
+  </div>
+  <p class="text-center">@2021 hkawasumi</p>
+  <div class="text-end"><div class="pagetop"><div class="btn btn-light shadow-lg">↑</div></div></div>
+</div>

@@ -1,0 +1,46 @@
+<div class="bg-secondary py-2">
+  <nav class="navbar navbar-expand-md navbar-dark bg-secondary mx-5">
+    <div class="container-fluid">
+      <a class="navbar-brand">Calendarity</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <% if user_signed_in? %>
+        <div class="ms-5 text-white"><%= current_user.fullname %></div>
+      <% else %>
+        <div class="ms-5 text-white">not logged_in</div>
+      <% end %>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to 'MyPage', user_path(current_user.id), class: 'nav-link text-decoration-underline' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Events', events_path, class: 'nav-link text-decoration-underline' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Chats', user_rooms_path(current_user.id), class: 'nav-link text-decoration-underline' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Edit User', edit_user_registration_path, class: 'nav-link text-decoration-underline'%>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link text-decoration-underline' ,data: { confirm: "【確認】ログアウトしますか？" }%>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to 'Login', new_user_session_path, class: 'nav-link text-decoration-underline' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Sign Up', new_user_registration_path, class: 'nav-link text-decoration-underline' %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

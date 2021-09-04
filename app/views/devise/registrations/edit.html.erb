@@ -1,0 +1,67 @@
+<h2 class='mt-3'>Editing User Status</h2> 
+<p>~<%= @user.fullname %>~</p>
+
+<%# <h2><%= t('.title', resource: resource.model_name.human)</h2> %>
+<div class='container'>
+  <div class='row'>
+    <div class='d-flex justify-content-center'>
+
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="form-group mb-3">
+          <%= f.label t("devise.registrations.edit.username") %><br />
+          <%= f.text_field :username, autofocus: true, autocomplete: "username", class:'form-control' %>
+        </div>
+        <%# ':email'から':username'に変更 %>
+
+        <div class="form-group mb-3">
+          <%= f.label t("devise.registrations.edit.fullname") %><br />
+          <%= f.text_field :fullname, autofocus: true, autocomplete: "fullname", class:'form-control' %>
+        </div>
+        <%# ':fullname' 欄を追加 %>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div><%= t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email) %></div>
+        <% end %>
+
+        <div class="form-group mb-3">
+          <%= f.label :password %> <i>(<%= t('.leave_blank_if_you_don_t_want_to_change_it') %>)</i><br />
+          <%= f.password_field :password, autocomplete: "new-password", class:'form-control' %>
+          <% if @minimum_password_length %>
+            <br />
+            <em class='d-flex justify-content-end'><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
+          <% end %>
+        </div>
+
+        <div class="form-group mb-3">
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class:'form-control' %>
+        </div>
+
+        <div class="form-group mb-3">
+          <%= f.label :current_password %> <i>(<%= t('.we_need_your_current_password_to_confirm_your_changes') %>)</i><br />
+          <%= f.password_field :current_password, autocomplete: "current-password", class:'form-control' %>
+        </div>
+
+        <div class="actions my-3 d-flex justify-content-center">
+          <%= f.submit t('.update') , class:'btn btn-lg btn-info'%>
+        </div>
+      <% end %>
+
+    </div>
+
+      <hr>
+    <div class='d-flex justify-content-center'>
+      <h4><%= t('.cancel_my_account') %></h4><br />
+    </div>
+
+    <p class='d-flex justify-content-center'><%= t('.unhappy') %></p><br />
+    <div class='d-flex justify-content-center mb-3'><%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete, class:'btn btn-danger'%></div>
+
+    <hr>
+
+    <div class='d-flex justify-content-end'><%= link_to t('devise.shared.links.back'), :back, class:'btn btn-primary text-white'%></div>
+
+  </div>
+</div>

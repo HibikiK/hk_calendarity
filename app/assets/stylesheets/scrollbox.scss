@@ -1,0 +1,18 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+#members{
+  height: 500px;               /* 横幅を200pxに指定 */
+  overflow-y: scroll;          /* 縦方向にスクロール可能にする */
+}
+
+#posts{
+  height: 400px;               /* 横幅を200pxに指定 */
+  overflow-y: scroll;          /* 縦方向にスクロール可能にする */
+}
+
+#events{
+  height: 500px;               /* 横幅を200pxに指定 */
+  overflow-y: scroll;          /* 縦方向にスクロール可能にする */
+}

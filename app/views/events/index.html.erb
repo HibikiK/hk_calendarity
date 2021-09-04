@@ -1,0 +1,50 @@
+<h1>Group Events </h1>
+
+<section class="row">
+  <div class="col-md-4">
+  <h3>Group Events:</h3>
+
+    <div id='events'>
+   
+      <div class='card py-3'>
+        <% previous_event = nil %>
+          <% @events.each do |event| %>
+            <% if event.start_at.month != previous_event %>
+              <div class='d-flex justify-content-center text-decoration-underline'>
+                <%= "#{t("date.month_names")[event.start_at.month]}" %>
+              </div>
+            <% end %>
+            <div class='list-group list-group-flush border-0'>
+              <%= link_to(event, class:'list-group-item')  do %>
+                <div class='card-header border'>
+                  <h5 class='list-group-item-heading'><%= event.name %></h5>
+                </div>
+                <div class='card-body border'>
+                  <p class='mb-1'><%= "・#{I18n.t('views.events.Time')} :  #{l(event.start_at, format: :short)} ~ #{l(event.end_at, format: :short)}" %></p>
+                  <p class='mb-1'><%= "・#{I18n.t('views.events.Chair')} :  #{event.owner.username}" %></p>
+                </div>
+              <% end %>
+            </div>
+            <% previous_event = event.start_at.month %>
+          <% end %>
+          <div class="d-flex justify-content-end me-3">
+            <%= paginate @events %>
+          </div>
+      </div>
+    </div>
+
+    <%= link_to 'Create New Event', new_event_path, class:'btn btn-primary d-grid gap-2 m-5' %>
+  </div>
+
+  <div class="col-md-8">
+    <h3>Group Calendar:</h3>
+    <div class='container border p-3'>
+      <div id='group_calendar'></div>
+    </div>
+    <br />
+
+   
+
+  </div>
+
+</section>

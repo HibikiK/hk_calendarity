@@ -1,0 +1,55 @@
+<h1>Chats</h1>
+
+<section class="row">
+
+  <div class="col-md-3 mx-3">
+    <%= render 'messages/chatlinks' %>
+  </div>
+  
+
+  <div class="col-md-8 mx-3">
+
+    <h3>Group Chat:</h3>
+    <div class='container border p-3'>
+      <%# グループチャットの投稿一覧 %>
+      <div id='posts'>
+        <% if @posts != nil %>
+          <% l = @posts.length; @posts.each do |post| 
+            submitter = User.find_by(id: post.submitter)
+            sname = (submitter != nil) ? submitter.fullname : '匿名太郎 ' %>
+            <div class='card m-1'>
+              <div class='card-header'>
+                <%= "#{sname} :   #{l(post.created_at, format: :short)}" %>
+              </div>
+              <div class='card-body'>
+                <blockquote><%= simple_format(h(post.body)) %></blockquote>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+        <div class="d-flex justify-content-end me-3">
+          <%= paginate @posts %>
+        </div>
+      </div>
+
+      <%# チャットの投稿 %>
+      <div class='card my-4 mx-1'>
+        <div class='card-header bg-primary text-white text-center'>投稿</div>
+          <div class='form-group'>
+            <%= form_with(model: Post.new) do |f| %>
+              <div class='d-flex'>
+                <%= f.text_area :body, placeholder: "投稿を入力してください", class:'form-control', rows: 2 %><br />
+                <%= f.hidden_field :id, { value: @user.id } %>
+                <%= f.submit '送信', class:'btn btn-info' %>  
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+
+  
+
+</section>
